@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">HW9</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tic_tac_toe_game">Game: Tic Tac Toe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="four_in_a_row_game">Game: 4 in a Row</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_tic_tac_toe">Tic Tac Toe</string>
+    <string name="btn_4_in_a_row">4 in a Row</string>
+
+
+    <string name="p1_win">Player one wins</string>
+    <string name="p2_win">Player two wins</string>
+    <string name="draw">Draw!!</string>
+    <string name="txt_view_player_2">Player 2: 0</string>
+    <string name="txt_view_player_1">Player 1: 0</string>
+</resources>
