@@ -1,8 +1,9 @@
-package com.example.hw9;
+package com.example.hw9.controller;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hw9.Board;
+import com.example.hw9.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class TicTacToeFragment extends Fragment {
@@ -34,6 +37,7 @@ public class TicTacToeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -41,27 +45,35 @@ public class TicTacToeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tic_tac_toe, container, false);
-        findViews(view);
         if (savedInstanceState != null){
             mRoundCount = savedInstanceState.getInt("roundCount");
             mPlayer1points = savedInstanceState.getInt("player1Points");
             mPlayer2points = savedInstanceState.getInt("player2Points");
             mPlayer1Turn = savedInstanceState.getBoolean("player1Turn");
         }
-
+        findViews(view);
         setListeners(view);
         return view;
     }
 
+
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
         outState.putInt("roundCount", mRoundCount);
         outState.putInt("player1Points", mPlayer1points);
         outState.putInt("player2Points", mPlayer2points);
         outState.putBoolean("player1Turn", mPlayer1Turn);
+
+        super.onSaveInstanceState(outState);
     }
+
 
     private void findViews(View view){
         for (int i=0; i<3; i++){

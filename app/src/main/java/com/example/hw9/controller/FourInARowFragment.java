@@ -1,19 +1,17 @@
-package com.example.hw9;
+package com.example.hw9.controller;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
+import com.example.hw9.Board4InARow;
+import com.example.hw9.R;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class FourInARowFragment extends Fragment {
@@ -26,8 +24,11 @@ public class FourInARowFragment extends Fragment {
     private int mCountRound;
     private int mScore1;
     private int mScore2;
+    private int mWinPlayer;
+    private char player = 'R';
 
-    private ColorStateList mDefColor;
+
+    private Board4InARow mBoard4InARow;
 
     public FourInARowFragment() {
         // Required empty public constructor
@@ -45,7 +46,7 @@ public class FourInARowFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
         findViews(view);
-        setListeners();
+        setListeners(view);
         return view;
 
     }
@@ -57,12 +58,15 @@ public class FourInARowFragment extends Fragment {
                 String buttonID = "btn_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getActivity().getPackageName());
                 mButtons[i][j] = view.findViewById(resID);
-                Drawable buttonBackground = mButtons[i][j].getBackground();
+
             }
         }
+
+        mScorePlayer1 = view.findViewById(R.id.score_player1_4_in_a_row);
+        mScorePlayer2 = view.findViewById(R.id.score_player2_4_in_a_row);
     }
 
-    private void setListeners(){
+    private void setListeners(final View view){
         for (int i=0; i<5; i++){
             for (int j=0; j<5; j++){
                 mButtons[i][j].setOnClickListener(new View.OnClickListener() {
@@ -72,19 +76,19 @@ public class FourInARowFragment extends Fragment {
                             return;
                         }
                         if (mCurrentPlayer) {
-                            ((Button) v).setText("X");
+                            ((Button) v).setText("R");
                         } else {
-                            ((Button) v).setText("O");
+                            ((Button) v).setText("B");
                         }
-                        mCountRound++;
+                      mCountRound++;
                         if (checkForWin()) {
                             if (mCurrentPlayer) {
-                                player1Wins();
+                                player1Wins(view);
                             } else {
-                                player2Wins();
+                                player2Wins(view);
                             }
                         } else if (mCountRound == 25) {
-                            draw();
+                            draw(view);
                         } else {
                             mCurrentPlayer = !mCurrentPlayer;
                         }
@@ -98,69 +102,75 @@ public class FourInARowFragment extends Fragment {
 
     private boolean checkForWin() {
         String[][] field = new String[5][5];
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                field[i][j] = mButtons[i][j].getText().toString();
+            }
+        }
 
-        for (int i = 0; i<5; i++)
-        {
-            for (int j = 0; j<5-3; j++)
-            {
-                if (mButtons[i][j].equals(mButtons[i][j + 1]) &&
-                        mButtons[i][j + 1].equals(mButtons[i][j + 2]) &&
-                        mButtons[i][j + 2].equals(mButtons[i][j + 3]) &&
-                        !mButtons[i][j].equals(""))
-                {
+
+        //check for 4 across
+        for(int row = 0; row<5; row++){
+            for (int col = 0;col < 2;col++){
+                if (field[row][col].equals(field[row][col+1])&&
+                field[row][col].equals(field[row][col+2])&&
+                field[row][col].equals(field[row][col+3])&&
+                        !field[row][col].equals(" ")){
                     return true;
                 }
             }
         }
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                field[i][j] = mButtons[i][j].getText().toString();
+        for(int row = 0; row < 2; row++){
+            for(int col = 0; col < 5; col++){
+                if (field[row][col].equals( field[row+1][col])  &&
+                        field[row][col].equals( field[row+2][col])&&
+                        field[row][col].equals( field[row+3][col]) &&
+                        !field[row][col].equals(" ")){
+                    return true;
+                }
             }
         }
-        for (int i = 0; i < 3; i++) {
-            if (field[i][0].equals(field[i][1])
-                    && field[i][0].equals(field[i][2])
-                    && !field[i][0].equals("")) {
-                return true;
+        //check upward diagonal
+        for(int row = 3; row < field.length; row++){
+            for(int col = 0; col < field[0].length - 3; col++){
+                if (field[row][col].equals( field[row-1][col+1])   &&
+                        field[row][col].equals( field[row-2][col+2]) &&
+                        field[row][col].equals( field[row-3][col+3]) &&
+                        !field[row][col].equals(" ")){
+                    return true;
+                }
             }
         }
-        for (int i = 0; i < 3; i++) {
-            if (field[0][i].equals(field[1][i])
-                    && field[0][i].equals(field[2][i])
-                    && !field[0][i].equals("")) {
-                return true;
+        //check downward diagonal
+        for(int row = 0; row < field.length - 3; row++){
+            for(int col = 0; col < field[0].length - 3; col++){
+                if (!field[row][col].equals(field[row+1][col+1])   &&
+                        field[row][col].equals(field[row+2][col+2]) &&
+                        field[row][col].equals(field[row+3][col+3]) &&
+                        field[row][col].equals(" ")){
+                    return true;
+                }
             }
-        }
-        if (field[0][0].equals(field[1][1])
-                && field[0][0].equals(field[2][2])
-                && !field[0][0].equals("")) {
-            return true;
-        }
-        if (field[0][2].equals(field[1][1])
-                && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
-            return true;
         }
         return false;
     }
 
-    private void player1Wins() {
+    private void player1Wins(View view) {
         mScore1++;
-//        Snackbar.make(view.findViewById(R.id.tic_tac_toe), R.string.p1_win, Snackbar.LENGTH_LONG).show();
+//        Snackbar.make(view.findViewById(R.id.fragment_container), R.string.p1_win, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
         updatePointsText();
         resetBoard();
     }
-    private void player2Wins() {
+    private void player2Wins(View view) {
         mScore2++;
-//        Snackbar.make(view.findViewById(R.id.fragment_container), R.string.p2_win, Snackbar.LENGTH_LONG).show();
+     Snackbar.make(view.findViewById(R.id.fragment_container), R.string.p2_win, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
         updatePointsText();
         resetBoard();
     }
-    private void draw() {
-//        Snackbar.make(view.findViewById(R.id.tic_tac_toe), R.string.draw, Snackbar.LENGTH_LONG).show();
+    private void draw(View view) {
+        Snackbar.make(view.findViewById(R.id.tic_tac_toe), R.string.draw, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.draw, Toast.LENGTH_LONG).show();
         resetBoard();
     }
@@ -170,14 +180,16 @@ public class FourInARowFragment extends Fragment {
         mScorePlayer2.setText("Player two: " + mScore2);
     }
     private void resetBoard(){
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 mButtons[i][j].setText("");
             }
         }
         mCountRound = 0;
         mCurrentPlayer = true;
     }
+
+
    /* private void compareColorButton(Button button){
         ColorDrawable buttonColor = (ColorDrawable) button.getBackground();
         int color = buttonColor.getColor();
