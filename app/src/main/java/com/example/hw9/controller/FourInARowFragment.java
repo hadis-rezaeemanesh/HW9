@@ -1,5 +1,8 @@
 package com.example.hw9.controller;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +27,8 @@ public class FourInARowFragment extends Fragment {
     private int mCountRound;
     private int mScore1;
     private int mScore2;
-    private int mWinPlayer;
-    private char player = 'R';
+    private int colorId;
+    private char mPlayer = 'R';
 
 
     private Board4InARow mBoard4InARow;
@@ -46,6 +49,7 @@ public class FourInARowFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
         findViews(view);
+        colorId = findColorButtons(mButtons[0][0]);
         setListeners(view);
         return view;
 
@@ -58,12 +62,21 @@ public class FourInARowFragment extends Fragment {
                 String buttonID = "btn_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getActivity().getPackageName());
                 mButtons[i][j] = view.findViewById(resID);
-
             }
         }
 
         mScorePlayer1 = view.findViewById(R.id.score_player1_4_in_a_row);
         mScorePlayer2 = view.findViewById(R.id.score_player2_4_in_a_row);
+    }
+
+    private int findColorButtons(Button button){
+        Drawable buttonBackground = button.getBackground();
+        if (buttonBackground instanceof ColorDrawable) {
+            colorId = ((ColorDrawable)buttonBackground).getColor();
+        }
+//        ColorDrawable buttonColor = (ColorDrawable) button.getBackground();
+//        colorId = buttonColor.getColor();
+        return colorId;
     }
 
     private void setListeners(final View view){
@@ -72,13 +85,13 @@ public class FourInARowFragment extends Fragment {
                 mButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (!((Button) v).getText().toString().equals("")) {
+                        if (findColorButtons((Button) v) != colorId) {
                             return;
                         }
                         if (mCurrentPlayer) {
-                            ((Button) v).setText("R");
+                            ((Button) v).setBackgroundColor(Color.BLUE);
                         } else {
-                            ((Button) v).setText("B");
+                            ((Button) v).setBackgroundColor(Color.RED);
                         }
                       mCountRound++;
                         if (checkForWin()) {
@@ -101,53 +114,45 @@ public class FourInARowFragment extends Fragment {
 
 
     private boolean checkForWin() {
-        String[][] field = new String[5][5];
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                field[i][j] = mButtons[i][j].getText().toString();
-            }
-        }
-
-
         //check for 4 across
         for(int row = 0; row<5; row++){
             for (int col = 0;col < 2;col++){
-                if (field[row][col].equals(field[row][col+1])&&
-                field[row][col].equals(field[row][col+2])&&
-                field[row][col].equals(field[row][col+3])&&
-                        !field[row][col].equals(" ")){
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+1]))
+                && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+2]))
+                && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+3]))
+                && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
         for(int row = 0; row < 2; row++){
             for(int col = 0; col < 5; col++){
-                if (field[row][col].equals( field[row+1][col])  &&
-                        field[row][col].equals( field[row+2][col])&&
-                        field[row][col].equals( field[row+3][col]) &&
-                        !field[row][col].equals(" ")){
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+1][col]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+2][col]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+3][col]))
+                        && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
         //check upward diagonal
-        for(int row = 3; row < field.length; row++){
-            for(int col = 0; col < field[0].length - 3; col++){
-                if (field[row][col].equals( field[row-1][col+1])   &&
-                        field[row][col].equals( field[row-2][col+2]) &&
-                        field[row][col].equals( field[row-3][col+3]) &&
-                        !field[row][col].equals(" ")){
+        for(int row = 3; row < 5; row++){
+            for(int col = 0; col < 2; col++){
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-1][col+1]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-2][col+2]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-3][col+3]))
+                        && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
         //check downward diagonal
-        for(int row = 0; row < field.length - 3; row++){
-            for(int col = 0; col < field[0].length - 3; col++){
-                if (!field[row][col].equals(field[row+1][col+1])   &&
-                        field[row][col].equals(field[row+2][col+2]) &&
-                        field[row][col].equals(field[row+3][col+3]) &&
-                        field[row][col].equals(" ")){
+        for(int row = 0; row < 2; row++){
+            for(int col = 0; col < 2; col++){
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+1][col+1]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+2][col+2]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+3][col+3]))
+                        && (findColorButtons(mButtons[row][col]) != colorId)){
                     return true;
                 }
             }
