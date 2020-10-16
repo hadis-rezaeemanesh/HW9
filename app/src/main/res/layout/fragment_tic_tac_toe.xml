@@ -37,6 +37,7 @@
         <Button
             android:id="@+id/btn_01"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -44,6 +45,7 @@
         <Button
             android:id="@+id/btn_02"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -60,6 +62,7 @@
         <Button
             android:id="@+id/btn_10"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -67,6 +70,7 @@
         <Button
             android:id="@+id/btn_11"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -74,6 +78,7 @@
         <Button
             android:id="@+id/btn_12"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -90,6 +95,7 @@
         <Button
             android:id="@+id/btn_20"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -97,6 +103,7 @@
         <Button
             android:id="@+id/btn_21"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />
@@ -104,6 +111,7 @@
         <Button
             android:id="@+id/btn_22"
             android:layout_width="0dp"
+            android:freezesText="true"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp" />

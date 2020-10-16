@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/four_in_a_row"
     android:background="#4CAF50"
     android:orientation="vertical"
     tools:context=".controller.TicTacToeFragment">
@@ -26,44 +27,54 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_40"
+            android:id="@+id/btn_four_row_40"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_41"
+            android:id="@+id/btn_four_row_41"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_42"
+            android:id="@+id/btn_four_row_42"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_43"
+            android:id="@+id/btn_four_row_43"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_44"
+            android:id="@+id/btn_four_row_44"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -74,44 +85,54 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_30"
+            android:id="@+id/btn_four_row_30"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_31"
+            android:id="@+id/btn_four_row_31"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_32"
+            android:id="@+id/btn_four_row_32"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_33"
+            android:id="@+id/btn_four_row_33"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_34"
+            android:id="@+id/btn_four_row_34"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -122,44 +143,54 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_20"
+            android:id="@+id/btn_four_row_20"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_21"
+            android:id="@+id/btn_four_row_21"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_22"
+            android:id="@+id/btn_four_row_22"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_23"
+            android:id="@+id/btn_four_row_23"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="60sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_24"
+            android:id="@+id/btn_four_row_24"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -170,44 +201,54 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_10"
+            android:id="@+id/btn_four_row_10"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_11"
+            android:id="@+id/btn_four_row_11"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_12"
+            android:id="@+id/btn_four_row_12"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_13"
+            android:id="@+id/btn_four_row_13"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true" />
 
         <Button
-            android:id="@+id/btn_14"
+            android:id="@+id/btn_four_row_14"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -215,59 +256,72 @@
         android:layout_height="0dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="30dp"
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btn_00"
+            android:id="@+id/btn_four_row_00"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"
+            android:textSize="30sp"/>
 
         <Button
-            android:id="@+id/btn_01"
+            android:id="@+id/btn_four_row_01"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_02"
+            android:id="@+id/btn_four_row_02"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_03"
+            android:id="@+id/btn_four_row_03"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
 
         <Button
-            android:id="@+id/btn_04"
+            android:id="@+id/btn_four_row_04"
+            android:layout_margin="3dp"
+            android:background="#c1bebe"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:backgroundTint="#c1bebe"/>
+            android:freezesText="true"/>
     </LinearLayout>
     <TextView
         android:id="@+id/score_player1_4_in_a_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_view_player_1"/>
+        android:text="@string/txt_view_player_1"
+        android:padding="4dp"/>
     <TextView
         android:id="@+id/score_player2_4_in_a_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/txt_view_player_2"/>
+        android:text="@string/txt_view_player_2"
+        android:padding="4dp"
+        android:layout_marginBottom="30dp"/>
 
 
 </LinearLayout>

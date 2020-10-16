@@ -28,10 +28,7 @@ public class FourInARowFragment extends Fragment {
     private int mScore1;
     private int mScore2;
     private int colorId;
-    private char mPlayer = 'R';
 
-
-    private Board4InARow mBoard4InARow;
 
     public FourInARowFragment() {
         // Required empty public constructor
@@ -49,7 +46,7 @@ public class FourInARowFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
         findViews(view);
-        colorId = findColorButtons(mButtons[0][0]);
+        colorId = Color.parseColor("#c1bebe");
         setListeners(view);
         return view;
 
@@ -59,7 +56,7 @@ public class FourInARowFragment extends Fragment {
     private void findViews(View view){
         for (int i=0; i<5; i++){
             for (int j=0; j<5; j++){
-                String buttonID = "btn_" + i + j;
+                String buttonID = "btn_four_row_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getActivity().getPackageName());
                 mButtons[i][j] = view.findViewById(resID);
             }
@@ -70,13 +67,12 @@ public class FourInARowFragment extends Fragment {
     }
 
     private int findColorButtons(Button button){
+        int idColor = 0;
         Drawable buttonBackground = button.getBackground();
         if (buttonBackground instanceof ColorDrawable) {
-            colorId = ((ColorDrawable)buttonBackground).getColor();
+            idColor = ((ColorDrawable)buttonBackground).getColor();
         }
-//        ColorDrawable buttonColor = (ColorDrawable) button.getBackground();
-//        colorId = buttonColor.getColor();
-        return colorId;
+        return idColor;
     }
 
     private void setListeners(final View view){
@@ -162,20 +158,20 @@ public class FourInARowFragment extends Fragment {
 
     private void player1Wins(View view) {
         mScore1++;
-//        Snackbar.make(view.findViewById(R.id.fragment_container), R.string.p1_win, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.p1_win, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
         updatePointsText();
         resetBoard();
     }
     private void player2Wins(View view) {
         mScore2++;
-     Snackbar.make(view.findViewById(R.id.fragment_container), R.string.p2_win, Snackbar.LENGTH_LONG).show();
+     Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.p2_win, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
         updatePointsText();
         resetBoard();
     }
     private void draw(View view) {
-        Snackbar.make(view.findViewById(R.id.tic_tac_toe), R.string.draw, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.draw, Snackbar.LENGTH_LONG).show();
 //        Toast.makeText(getActivity(), R.string.draw, Toast.LENGTH_LONG).show();
         resetBoard();
     }
@@ -187,7 +183,7 @@ public class FourInARowFragment extends Fragment {
     private void resetBoard(){
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                mButtons[i][j].setText("");
+                mButtons[i][j].setBackgroundColor(Color.parseColor("#c1bebe"));
             }
         }
         mCountRound = 0;
