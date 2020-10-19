@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:textSize="30sp"
-            android:freezesText="true"/>
+            android:state_activated="true"/>
 
         <Button
             android:id="@+id/btn_four_row_41"

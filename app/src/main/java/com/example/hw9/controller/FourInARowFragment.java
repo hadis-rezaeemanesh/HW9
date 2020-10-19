@@ -10,20 +10,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.hw9.Board4InARow;
 import com.example.hw9.R;
 import com.google.android.material.snackbar.Snackbar;
 
 
 public class FourInARowFragment extends Fragment {
 
+    public static final String BUNDLE_COLOR_BUTTONS = "colorButtons";
+    public static final String BUNDLE_CURRENT_PLAYER = "currentPlayer";
+    public static final String BUNDLE_COUNT_ROUND = "countRound";
     private Button[][] mButtons = new Button[5][5];
     private TextView mScorePlayer1;
     private TextView mScorePlayer2;
 
     private boolean mCurrentPlayer = true;
+    private int[][] colorButtons = new int[5][5];
     private int mCountRound;
     private int mScore1;
     private int mScore2;
@@ -37,7 +41,6 @@ public class FourInARowFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -45,43 +48,78 @@ public class FourInARowFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_four_in_a_row, container, false);
+
         findViews(view);
+        if (savedInstanceState != null) {
+            mCountRound = savedInstanceState.getInt(BUNDLE_COUNT_ROUND);
+            mCurrentPlayer = savedInstanceState.getBoolean(BUNDLE_CURRENT_PLAYER);
+            Button[][] btn= (Button[][]) savedInstanceState.getSerializable(BUNDLE_COLOR_BUTTONS);
+            for (int i=0; i<5; i++){
+                for (int j=0; j<5; j++){
+                    mButtons[i][j].setBackground(btn[i][j].getBackground());
+                }
+            }
+
+        }
+
         colorId = Color.parseColor("#c1bebe");
         setListeners(view);
+        colorArray();
         return view;
 
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(BUNDLE_COLOR_BUTTONS, mButtons);
+        outState.putBoolean(BUNDLE_CURRENT_PLAYER, mCurrentPlayer);
+        outState.putInt(BUNDLE_COUNT_ROUND, mCountRound);
 
-    private void findViews(View view){
-        for (int i=0; i<5; i++){
-            for (int j=0; j<5; j++){
+    }
+
+    private void findViews(View view) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
                 String buttonID = "btn_four_row_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getActivity().getPackageName());
                 mButtons[i][j] = view.findViewById(resID);
             }
         }
-
         mScorePlayer1 = view.findViewById(R.id.score_player1_4_in_a_row);
         mScorePlayer2 = view.findViewById(R.id.score_player2_4_in_a_row);
     }
 
-    private int findColorButtons(Button button){
+    private int findColorButtons(Button button) {
         int idColor = 0;
         Drawable buttonBackground = button.getBackground();
         if (buttonBackground instanceof ColorDrawable) {
-            idColor = ((ColorDrawable)buttonBackground).getColor();
+            idColor = ((ColorDrawable) buttonBackground).getColor();
         }
         return idColor;
     }
 
-    private void setListeners(final View view){
-        for (int i=0; i<5; i++){
-            for (int j=0; j<5; j++){
+    private void colorArray() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                colorButtons[i][j] = findColorButtons(mButtons[i][j]);
+            }
+        }
+    }
+
+
+    private void setListeners(final View view) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+
+                final int i1 = i, j1 = j;
                 mButtons[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (findColorButtons((Button) v) != colorId) {
+                            return;
+                        }
+                        if (i1 > 0 && findColorButtons(mButtons[i1 - 1][j1]) == colorId) {
                             return;
                         }
                         if (mCurrentPlayer) {
@@ -89,7 +127,7 @@ public class FourInARowFragment extends Fragment {
                         } else {
                             ((Button) v).setBackgroundColor(Color.RED);
                         }
-                      mCountRound++;
+                        mCountRound++;
                         if (checkForWin()) {
                             if (mCurrentPlayer) {
                                 player1Wins(view);
@@ -108,47 +146,46 @@ public class FourInARowFragment extends Fragment {
     }
 
 
-
     private boolean checkForWin() {
         //check for 4 across
-        for(int row = 0; row<5; row++){
-            for (int col = 0;col < 2;col++){
-                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+1]))
-                && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+2]))
-                && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col+3]))
-                && (findColorButtons(mButtons[row][col]) != colorId)) {
+        for (int row = 0; row < 5; row++) {
+            for (int col = 0; col < 2; col++) {
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col + 1]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col + 2]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row][col + 3]))
+                        && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
-        for(int row = 0; row < 2; row++){
-            for(int col = 0; col < 5; col++){
-                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+1][col]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+2][col]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+3][col]))
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 5; col++) {
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 1][col]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 2][col]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 3][col]))
                         && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
         //check upward diagonal
-        for(int row = 3; row < 5; row++){
-            for(int col = 0; col < 2; col++){
-                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-1][col+1]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-2][col+2]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row-3][col+3]))
+        for (int row = 3; row < 5; row++) {
+            for (int col = 0; col < 2; col++) {
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row - 1][col + 1]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row - 2][col + 2]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row - 3][col + 3]))
                         && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
         }
         //check downward diagonal
-        for(int row = 0; row < 2; row++){
-            for(int col = 0; col < 2; col++){
-                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+1][col+1]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+2][col+2]))
-                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row+3][col+3]))
-                        && (findColorButtons(mButtons[row][col]) != colorId)){
+        for (int row = 0; row < 2; row++) {
+            for (int col = 0; col < 2; col++) {
+                if ((findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 1][col + 1]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 2][col + 2]))
+                        && (findColorButtons(mButtons[row][col]) == findColorButtons(mButtons[row + 3][col + 3]))
+                        && (findColorButtons(mButtons[row][col]) != colorId)) {
                     return true;
                 }
             }
@@ -159,28 +196,28 @@ public class FourInARowFragment extends Fragment {
     private void player1Wins(View view) {
         mScore1++;
         Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.p1_win, Snackbar.LENGTH_LONG).show();
-//        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
         updatePointsText();
-        resetBoard();
-    }
-    private void player2Wins(View view) {
-        mScore2++;
-     Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.p2_win, Snackbar.LENGTH_LONG).show();
-//        Toast.makeText(getActivity(), R.string.p2_win, Toast.LENGTH_LONG).show();
-        updatePointsText();
-        resetBoard();
-    }
-    private void draw(View view) {
-        Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.draw, Snackbar.LENGTH_LONG).show();
-//        Toast.makeText(getActivity(), R.string.draw, Toast.LENGTH_LONG).show();
         resetBoard();
     }
 
-    private void updatePointsText(){
+    private void player2Wins(View view) {
+        mScore2++;
+        Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.p2_win, Snackbar.LENGTH_LONG).show();
+        updatePointsText();
+        resetBoard();
+    }
+
+    private void draw(View view) {
+        Snackbar.make(view.findViewById(R.id.four_in_a_row), R.string.draw, Snackbar.LENGTH_LONG).show();
+        resetBoard();
+    }
+
+    private void updatePointsText() {
         mScorePlayer1.setText("Player one: " + mScore1);
         mScorePlayer2.setText("Player two: " + mScore2);
     }
-    private void resetBoard(){
+
+    private void resetBoard() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 mButtons[i][j].setBackgroundColor(Color.parseColor("#c1bebe"));
@@ -189,11 +226,4 @@ public class FourInARowFragment extends Fragment {
         mCountRound = 0;
         mCurrentPlayer = true;
     }
-
-
-   /* private void compareColorButton(Button button){
-        ColorDrawable buttonColor = (ColorDrawable) button.getBackground();
-        int color = buttonColor.getColor();
-        if (color == getResources().getColor())
-    }*/
 }

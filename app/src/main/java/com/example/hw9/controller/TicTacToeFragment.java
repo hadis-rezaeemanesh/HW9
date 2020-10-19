@@ -45,13 +45,15 @@ public class TicTacToeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tic_tac_toe, container, false);
+        findViews(view);
         if (savedInstanceState != null){
             mRoundCount = savedInstanceState.getInt("roundCount");
             mPlayer1points = savedInstanceState.getInt("player1Points");
             mPlayer2points = savedInstanceState.getInt("player2Points");
             mPlayer1Turn = savedInstanceState.getBoolean("player1Turn");
+            updatePointsText();
         }
-        findViews(view);
+
         setListeners(view);
         return view;
     }
